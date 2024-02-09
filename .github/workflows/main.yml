@@ -61,5 +61,4 @@ jobs:
               sudo su
               git clone https://github.com/carolahn/14-website-react.git
               cd 14-website-react
-              export COMPOSE_FILE=docker-compose.prod.yml
-              sudo docker-compose up --build -d
+              sudo docker-compose -f docker-compose.prod.yml up --build -d
