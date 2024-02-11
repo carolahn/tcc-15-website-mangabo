@@ -16,12 +16,12 @@ jobs:
       - name: Installing dependencies
         run: |
           cd website
-          yarn install
+          npm install
 
       - name: Running Test
         run: |
           cd website
-          yarn test
+          npm test
 
   deploy:
     name: Deploying
