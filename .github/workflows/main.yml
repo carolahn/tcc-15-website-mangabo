@@ -16,14 +16,15 @@ jobs:
       - name: Installing dependencies
         run: yarn install
 
-    #   - name: Running Test
-    #     run: yarn test
+      - name: Running Test
+        run: yarn test
   deploy:
     name: Deploying
     needs: [test]
     runs-on: ubuntu-20.04
     env:
         EC2_HOST_DNS: ${{ secrets.EC2_HOST_DNS }}
+        REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
     steps:
       - name: Install docker on EC2
         uses: appleboy/ssh-action@master
