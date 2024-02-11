@@ -17,7 +17,9 @@ jobs:
         run: yarn install
 
       - name: Running Test
-        run: yarn test:website
+        run: |
+          cd website
+          yarn test
 
   deploy:
     name: Deploying
