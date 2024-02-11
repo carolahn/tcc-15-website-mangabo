@@ -65,7 +65,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY_PEM }}
           script: |
               sudo su
-              docker rm website nginx
+              docker rm website
+              docker rm nginx
               rm -rf tcc-15-website-mangabo
               git clone https://github.com/carolahn/tcc-15-website-mangabo.git
               cd tcc-15-website-mangabo
