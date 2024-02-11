@@ -13,14 +13,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Installing dependencies
+        run: yarn install
+      
       - name: Change to website directory
         run: cd website
 
-      - name: Installing dependencies
-        run: yarn install
-
       - name: Running Test
         run: yarn test
+        
   deploy:
     name: Deploying
     needs: [test]
