@@ -65,6 +65,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY_PEM }}
           script: |
               sudo su
+              docker rm website
               git clone https://github.com/carolahn/tcc-15-website-mangabo.git
               cd tcc-15-website-mangabo
               sudo docker-compose -f docker-compose.prod.yml up --build -d
