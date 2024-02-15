@@ -8,6 +8,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    env_file:
+      - ./website/.env.prod
     volumes:
       - website:/website/build/  # build files will be added at this directory !!!
   
