@@ -67,7 +67,8 @@ jobs:
               sudo su
               docker stop website nginx
               docker rm website nginx
+              docker rmi tcc-15-website-mangabo-nginx tcc-15-website-mangabo-website
               rm -rf tcc-15-website-mangabo
               git clone https://github.com/carolahn/tcc-15-website-mangabo.git
               cd tcc-15-website-mangabo
-              sudo docker-compose -f docker-compose.prod.yml up --build -d
+              docker-compose -f docker-compose.prod.yml up --build -d
