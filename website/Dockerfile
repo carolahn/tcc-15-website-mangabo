@@ -13,6 +13,9 @@ RUN npm install
 # Copy the rest of the application code to the container
 COPY . .
 
+# Clear the content of the build directory before building again
+RUN rm -rf /website/build/*
+
 # Build the React app
 RUN npm run build
 
