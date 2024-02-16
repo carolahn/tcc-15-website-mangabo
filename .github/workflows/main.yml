@@ -72,3 +72,14 @@ jobs:
               git clone -b fix/update-prod-env https://github.com/carolahn/tcc-15-website-mangabo.git
               cd tcc-15-website-mangabo
               docker-compose -f docker-compose.prod.yml up --build -d
+
+      - name: Restart Application
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST_DNS }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY_PEM }}
+          script: |
+            sudo su
+            cd tcc-15-website-mangabo
+            docker-compose -f docker-compose.prod.yml restart
