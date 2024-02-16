@@ -71,5 +71,6 @@ jobs:
               rm -rf tcc-15-website-mangabo
               git clone https://github.com/carolahn/tcc-15-website-mangabo.git
               cd tcc-15-website-mangabo
+              systemd-resolve --flush-caches
               docker-compose -f docker-compose.prod.yml build --no-cache
               docker-compose -f docker-compose.prod.yml up -d
