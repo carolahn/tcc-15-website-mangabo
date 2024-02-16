@@ -6,6 +6,8 @@ services:
     build: 
       context: ./website
       dockerfile: Dockerfile
+      args:
+        - REACT_APP_CACHE_BUSTER=$(date + '%Y%m%d%H%M%S')
     ports:
       - "3000:3000"
     volumes:

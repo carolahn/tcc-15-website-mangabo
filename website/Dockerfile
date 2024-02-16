@@ -13,6 +13,10 @@ RUN npm install
 # Copy the rest of the application code to the container
 COPY . .
 
+# Set the environment variable using the build argument
+ARG REACT_APP_CACHE_BUSTER
+ENV REACT_APP_CACHE_BUSTER ${REACT_APP_CACHE_BUSTER}
+
 # Build the React app
 RUN npm run build
 

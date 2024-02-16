@@ -2,7 +2,7 @@ name: React Testing and Deploying
 
 on:
   push:
-    branches: [ main ]
+    branches: [ fix/update-prod-env ]
   pull_request:
     branches: [ main ]
 
@@ -69,6 +69,6 @@ jobs:
               docker rm website nginx
               docker rmi tcc-15-website-mangabo-nginx tcc-15-website-mangabo-website
               rm -rf tcc-15-website-mangabo
-              git clone https://github.com/carolahn/tcc-15-website-mangabo.git
+              git clone -b fix/update-prod-env https://github.com/carolahn/tcc-15-website-mangabo.git
               cd tcc-15-website-mangabo
               docker-compose -f docker-compose.prod.yml up --build -d
