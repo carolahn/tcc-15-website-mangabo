@@ -11,6 +11,7 @@
     "axios-auth-refresh": "^3.2.1",
     "formik": "^2.2.9",
     "react": "^18.2.0",
+    "react-cache-buster": "^0.1.8",
     "react-dom": "^18.2.0",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
@@ -23,9 +24,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run generate-meta-tag && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate-meta-tag": "node ./node_modules/react-cache-buster/dist/generate-meta-tag.js"
   },
   "eslintConfig": {
     "extends": [
