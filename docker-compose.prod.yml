@@ -8,6 +8,7 @@ services:
       dockerfile: Dockerfile
       args:
         - REACT_APP_CACHE_BUSTER=$(date + '%Y%m%d%H%M%S')
+        - REACT_APP_API_URL=http://ec2-123123.compute-1.amazonaws.com/api/
     ports:
       - "3000:3000"
     volumes:
