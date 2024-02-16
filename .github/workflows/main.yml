@@ -2,7 +2,7 @@ name: React Testing and Deploying
 
 on:
   push:
-    branches: [ main ]
+    branches: [ feat/react-cache-buster ]
   pull_request:
     branches: [ main ]
 
