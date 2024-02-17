@@ -43,6 +43,9 @@ jobs:
         with:
           node-version: '14'
 
+      - name: Change working directory
+        run: cd website
+
       - name: Install Dependencies
         run: npm install
 
