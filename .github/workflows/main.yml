@@ -2,7 +2,7 @@ name: React Testing and Deploying
 
 on:
   push:
-    branches: [ main ]
+    branches: [ feat/release ]
   pull_request:
     branches: [ main ]
 
@@ -22,6 +22,56 @@ jobs:
         run: |
           cd website
           npm test
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Determine If Version Changed
+        id: version_changed
+        run: |
+          last_commit_message=$(git log -1 --pretty=%B)
+          version_pattern="bump version to v[0-9]+\.[0-9]+\.[0-9]+"
+          
+          if [[ $last_commit_message =~ $version_pattern ]]; then
+            last_commit_version=$(echo "${BASH_REMATCH[0]}" | grep -oP "[0-9]+\.[0-9]+\.[0-9]+")
+          else
+            last_commit_version=""
+          fi
+
+          echo "::set-output name=version_changed::$(test -n "$last_commit_version" && echo "true" || echo "false")"
+          echo "::set-output name=current_version::$last_commit_version"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Change working directory
+        run: cd website
+
+      - name: Install Dependencies
+        run: |
+          cd website
+          npm install
+
+      - name: Build
+        run: |
+          cd website
+          npm run build
+
+      - name: Create Release
+        if: steps.version_changed.outputs.version_changed == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: website/build/*  # Ajuste conforme necessário para o diretório correto dos artefatos de construção
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+          tag_name: v${{ steps.version_changed.outputs.current_version }}
+        
 
   deploy:
     name: Deploying
@@ -71,4 +121,5 @@ jobs:
               rm -rf tcc-15-website-mangabo
               git clone https://github.com/carolahn/tcc-15-website-mangabo.git
               cd tcc-15-website-mangabo
+              rm -rf /website/build/*
               docker-compose -f docker-compose.prod.yml up --build -d
