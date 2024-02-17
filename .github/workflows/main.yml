@@ -69,10 +69,8 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: website/build/*  # Ajuste conforme necessário para o diretório correto dos artefatos de construção
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
           tag_name: v${{ steps.version_changed.outputs.current_version }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
 
   deploy:
