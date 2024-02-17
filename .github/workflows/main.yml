@@ -34,9 +34,16 @@ jobs:
       - name: Determine If Version Changed
         id: version_changed
         run: |
-          current_version=$(cat website/package.json | jq -r '.version')
-          last_commit_version=$(git log -1 --pretty=%B | grep -oP "bump version to v[0-9]+\.[0-9]+\.[0-9]+" || true)
-          echo "::set-output name=version_changed::$(test "$current_version" != "$last_commit_version" && echo "true" || echo "false")"
+          last_commit_message=$(git log -1 --pretty=%B)
+          version_pattern="bump version to v[0-9]+\.[0-9]+\.[0-9]+"
+          
+          if [[ $last_commit_message =~ $version_pattern ]]; then
+            last_commit_version=$(echo "${BASH_REMATCH[0]}" | grep -oP "[0-9]+\.[0-9]+\.[0-9]+")
+          else
+            last_commit_version=""
+          fi
+
+          echo "::set-output name=version_changed::$(test -n "$last_commit_version" && echo "true" || echo "false")"
           echo "::set-output name=current_version::$last_commit_version"
 
       - name: Set up Node.js
