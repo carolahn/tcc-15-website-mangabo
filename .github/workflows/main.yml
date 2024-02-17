@@ -2,7 +2,7 @@ name: React Testing and Deploying
 
 on:
   push:
-    branches: [ feat/release ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
