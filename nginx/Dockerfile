@@ -1,5 +1,5 @@
 # Use an official Nginx image as the base image
-FROM nginx:latest
+FROM nginx:1.25.4
 
 # Remove any existing config files
 RUN rm /etc/nginx/conf.d/*
